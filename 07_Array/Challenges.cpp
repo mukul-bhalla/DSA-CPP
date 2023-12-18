@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 class Array
 {
@@ -25,6 +26,7 @@ public:
     }
     int MissingElement1();
     void MissingElementMore();
+    void MissingElementMore2();
 };
 int Array ::MissingElement1()
 {
@@ -56,11 +58,29 @@ void Array::MissingElementMore()
         }
     }
 }
+void Array::MissingElementMore2()
+{
+    int MAX = 19, i;
+    int *H = new int[MAX];
+    for (i = 0; i < length; i++)
+    {
+        H[A[i]] = 0;
+    }
+    for (i = 7; i <= 19; i++)
+    {
+        if (H[i] != 0)
+        {
+            cout << i << " ";
+        }
+    }
+    delete[] H;
+}
 int main()
 {
     Array obj;
     cout << obj.MissingElement1() << endl;
     obj.MissingElementMore();
+    obj.MissingElementMore2();
 
     return 0;
 }
