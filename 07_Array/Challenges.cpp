@@ -17,16 +17,18 @@ public:
         A[1] = 8;
         A[2] = 9;
         A[3] = 11;
-        A[4] = 12;
+        A[4] = 11;
         A[5] = 15;
-        A[6] = 16;
-        A[7] = 17;
+        A[6] = 15;
+        A[7] = 15;
         A[8] = 18;
-        A[9] = 19;
+        A[9] = 18;
     }
     int MissingElement1();
     void MissingElementMore();
     void MissingElementMore2();
+    void FindDuplicates();
+    void FindDuplicateCount();
 };
 int Array ::MissingElement1()
 {
@@ -75,12 +77,39 @@ void Array::MissingElementMore2()
     }
     delete[] H;
 }
+void Array::FindDuplicates()
+{
+    int lastDuplicate = 0, i;
+    for (i = 0; i < length; i++)
+    {
+        if (A[i] == A[i + 1] && A[i] != lastDuplicate)
+        {
+            cout << A[i] << " ";
+            lastDuplicate = A[i];
+        }
+    }
+}
+void Array::FindDuplicateCount()
+{
+    int i, j;
+    for (i = 0; i < length; i++)
+    {
+        if (A[i] == A[i + 1])
+        {
+            j = i + 1;
+            while (A[j] == A[i])
+                j++;
+            cout << A[i] << " Occurs " << j - i << "times";
+            i = j - 1;
+        }
+    }
+}
 int main()
 {
     Array obj;
-    cout << obj.MissingElement1() << endl;
-    obj.MissingElementMore();
-    obj.MissingElementMore2();
-
+    // cout << obj.MissingElement1() << endl;
+    // obj.MissingElementMore();
+    // obj.MissingElementMore2();
+    // obj.FindDuplicateCount();
     return 0;
 }
