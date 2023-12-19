@@ -29,6 +29,7 @@ public:
     void MissingElementMore2();
     void FindDuplicates();
     void FindDuplicateCount();
+    void FindDuplicateCount2();
 };
 int Array ::MissingElement1()
 {
@@ -104,6 +105,34 @@ void Array::FindDuplicateCount()
         }
     }
 }
+void Array::FindDuplicateCount2()
+{
+    int *H = new int[19]();
+    int i, j;
+    for (i = 0; i < length; i++)
+    {
+        if (A[i] == A[i + 1])
+        {
+            H[A[i]] = 1;
+            j = i + 1;
+            while (A[j] == A[i])
+            {
+                j++;
+                H[A[i]]++;
+            }
+            i = j - 1;
+        }
+    }
+    for (i = 0; i < 19; i++)
+    {
+        if (H[i] > 1)
+        {
+
+            cout << i << " occurs " << H[i] << "times";
+        }
+    }
+    delete[] H;
+}
 int main()
 {
     Array obj;
@@ -111,5 +140,6 @@ int main()
     // obj.MissingElementMore();
     // obj.MissingElementMore2();
     // obj.FindDuplicateCount();
+    obj.FindDuplicateCount2();
     return 0;
 }
