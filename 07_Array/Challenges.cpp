@@ -32,6 +32,7 @@ public:
     void FindDuplicateCount2();
     void FindPair(int k);
     void FindPairBetter(int k);
+    void FindPairSorted(int k);
 };
 int Array ::MissingElement1()
 {
@@ -161,6 +162,23 @@ void Array::FindPairBetter(int k)
         H[A[i]]++;
     }
 }
+void Array::FindPairSorted(int k)
+{
+    int i = 0, j = length - 1;
+    while (i < j)
+    {
+        if (A[i] + A[j] == k)
+        {
+            cout << A[i] << "," << A[j] << endl;
+            i++;
+            j--;
+        }
+        else if (A[i] + A[j] < k)
+            i++;
+        else
+            j--;
+    }
+}
 int main()
 {
     Array obj;
@@ -171,5 +189,6 @@ int main()
     // obj.FindDuplicateCount2();
     // obj.FindPair(20);
     // obj.FindPairBetter(20);
+    obj.FindPairSorted(20);
     return 0;
 }
