@@ -14,6 +14,7 @@ public:
     }
     Matrix(int n)
     {
+        this->n = n;
         A = new int[n]();
     }
     void set(int i, int j, int x);
