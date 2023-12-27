@@ -44,7 +44,9 @@ int Matrix::get(int i, int j)
 }
 int main()
 {
-    Matrix M(5);
+    int n;
+    cin >> n;
+    Matrix M(n);
     M.set(1, 1, 6);
     M.set(2, 2, 8);
     M.set(3, 3, 10);
