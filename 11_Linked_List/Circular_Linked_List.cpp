@@ -42,12 +42,58 @@ void RDisplay(struct Node *p)
     }
     flag = 0;
 }
-
+int count(struct Node *p)
+{
+    int c = 0;
+    do
+    {
+        c++;
+        p = p->next;
+    } while (p != head);
+    return c;
+}
+void Insert(struct Node *p, int index, int x)
+{
+    struct Node *t;
+    int i;
+    if (index < 0 || index > count(head))
+    {
+        cout << "Index out of range !";
+    }
+    if (index == 0)
+    {
+        t = new Node;
+        t->data = x;
+        if (head == NULL)
+        {
+            head = t;
+            head->next = head;
+        }
+        else
+        {
+            while (p->next != head)
+                p = p->next;
+            p->next = t;
+            t->next = head;
+            head = t;
+        }
+    }
+    else
+    {
+        for (i = 0; i < index - 1; i++)
+            p = p->next;
+        t = new Node;
+        t->data = x;
+        t->next = p->next;
+        p->next = t;
+    }
+}
 int main()
 {
     int A[] = {10, 20, 30, 40, 50};
     create(A, 5);
-    RDisplay(head);
-    RDisplay(head);
+    // RDisplay(head);
+    Insert(head, 0, 5);
+    Display(head);
     return 0;
 }
