@@ -88,12 +88,44 @@ void Insert(struct Node *p, int index, int x)
         p->next = t;
     }
 }
+int Delete(struct Node *p, int pos)
+{
+    struct Node *q = NULL, *t = NULL;
+    int i;
+    if (pos < 0 || pos > count(head) || p == NULL)
+    {
+        cout << "Not Possible";
+    }
+    if (pos == 0)
+    {
+        // t = head;
+        while (p->next != head)
+        {
+            p = p->next;
+        }
+        p->next = head->next;
+        q = head;
+        head = q->next;
+        delete q;
+    }
+    else
+    {
+        for (i = 0; i < pos - 2; i++)
+        {
+            p = p->next;
+        }
+        q = p->next;
+        p->next = q->next;
+        delete q;
+    }
+}
 int main()
 {
     int A[] = {10, 20, 30, 40, 50};
     create(A, 5);
     // RDisplay(head);
-    Insert(head, 0, 5);
+    // Insert(head, 0, 5);
+    Delete(head, 3);
     Display(head);
     return 0;
 }
