@@ -91,22 +91,32 @@ void Insert(struct Node *p, int index, int x)
 int Delete(struct Node *p, int pos)
 {
     struct Node *q = NULL, *t = NULL;
-    int i;
+    int i, x;
     if (pos < 0 || pos > count(head) || p == NULL)
     {
         cout << "Not Possible";
+        return -1;
     }
-    if (pos == 0)
+    if (pos == 1)
     {
         // t = head;
         while (p->next != head)
         {
             p = p->next;
         }
-        p->next = head->next;
-        q = head;
-        head = q->next;
-        delete q;
+        x = head->data;
+        if (head == p)
+        {
+            delete head;
+            head = NULL;
+        }
+        else
+        {
+            p->next = head->next;
+            q = head;
+            head = q->next;
+            delete q;
+        }
     }
     else
     {
@@ -116,8 +126,10 @@ int Delete(struct Node *p, int pos)
         }
         q = p->next;
         p->next = q->next;
+        x = q->data;
         delete q;
     }
+    return x;
 }
 int main()
 {
@@ -125,7 +137,7 @@ int main()
     create(A, 5);
     // RDisplay(head);
     // Insert(head, 0, 5);
-    Delete(head, 3);
+    cout << Delete(head, 2) << endl;
     Display(head);
     return 0;
 }
