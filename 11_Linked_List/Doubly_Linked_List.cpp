@@ -102,12 +102,26 @@ int Delete(struct Node *p, int pos)
     }
     return x;
 }
+void Reverse(struct Node *p)
+{
+    struct Node *temp;
+    while (p != NULL)
+    {
+        temp = p->next;
+        p->next = p->prev;
+        p->prev = temp;
+        p = p->prev;
+        if (p != NULL && p->next == NULL)
+            first = p;
+    }
+}
 int main()
 {
     int A[] = {3, 4, 6, 7, 9};
     create(A, 5);
     // Insert(first, 5, 1);
-    Delete(first, 6);
+    // Delete(first, 6);
+    Reverse(first);
     Display(first);
     // cout << count(first);
     return 0;
