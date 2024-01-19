@@ -69,11 +69,45 @@ void Insert(struct Node *p, int index, int x)
         p->next = t;
     }
 }
+int Delete(struct Node *p, int pos)
+{
+    struct Node *q;
+    int x = -1, i;
+    if (p == NULL || pos < 1 || pos > count(first))
+    {
+        return x;
+    }
+    if (pos == 1)
+    {
+        first = first->next;
+        q = first;
+        if (first)
+        {
+            first->prev == NULL;
+        }
+        x = p->data;
+        delete p;
+    }
+    else
+    {
+        for (i = 0; i < pos - 1; i++)
+        {
+            p = p->next;
+        }
+        p->prev->next = p->next;
+        if (p->next)
+            p->next->prev = p->prev;
+        x = p->data;
+        delete p;
+    }
+    return x;
+}
 int main()
 {
     int A[] = {3, 4, 6, 7, 9};
     create(A, 5);
-    Insert(first, 5, 1);
+    // Insert(first, 5, 1);
+    Delete(first, 6);
     Display(first);
     // cout << count(first);
     return 0;
