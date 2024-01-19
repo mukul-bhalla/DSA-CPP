@@ -77,12 +77,41 @@ void Insert(struct Node *p, int pos, int x)
         p->next = t;
     }
 }
+int Delete(struct Node *p, int pos)
+{
+    struct Node *t = head;
+    int x, i;
+    if (pos < 0 || pos > count(head) - 1 || p == NULL)
+    {
+        return -1;
+    }
+    if (pos == 0)
+    {
+        head = head->next;
+        p->prev->next = head;
+        head->prev = p->prev;
+        x = p->data;
+        delete p;
+    }
+    else
+    {
+        for (i = 0; i < pos; i++)
+        {
+            p = p->next;
+        }
+        p->prev->next = p->next;
+        p->next->prev = p->prev;
+        x = p->data;
+        delete p;
+    }
+    return x;
+}
 int main()
 {
-    int A[] = {};
-    // Create(A, 0);
-    Insert(head, 0, 5);
-    // cout << head->prev->d;
+    int A[] = {10, 20, 30, 40, 50};
+    Create(A, 5);
+    // Insert(head, 0, 5);
+    Delete(head, 5);
     Display(head);
     return 0;
 }
