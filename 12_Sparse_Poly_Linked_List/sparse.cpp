@@ -70,84 +70,104 @@ void Display(struct Node *p[], int m, int n)
         cout << endl;
     }
 }
-// void Add(struct Node *p1[], struct Node *p2[], struct Node *p3[], int m1, int n1, int m2, int n2)
-// {
-//     if (m1 != m2 || n1 != n2)
-//     {
-//         cout << "Not Possible !" << endl;
-//     }
-//     int i = 0, j = 0;
-//     while (i < m1)
-//     {
-//         struct Node *l1 = p1[i], *l2 = p2[j], *l3 = p3[i];
-//         while (l1 != NULL && l2 != NULL)
-//         {
-//             if (l3 == NULL)
-//             {
-//                 if (l1->col == l2->col && i == j)
-//                 {
-//                     p3[i] = new Node;
-//                     l3 = p3[i];
-//                     l3->col = l1->col;
-//                     l3->val = l1->val + l2->val;
-//                     l3->next = NULL;
-//                     l1 = l1->next;
-//                     l2 = l2->next;
-//                 }
-//                 else if (p1[i]->col > p2[j]->col)
-//                 {
-//                     p3[i] = new Node;
-//                     l3 = p3[i];
-//                     l3->col = l2->col;
-//                     l3->val = l2->val;
-//                     l3->next = NULL;
-//                     l2 = l2->next;
-//                 }
-//                 else
-//                 {
-//                     p3[i] = new Node;
-//                     l3 = p3[i];
-//                     l3->col = l1->col;
-//                     l3->val = l1->val;
-//                     l3->next = NULL;
-//                     l1 = l1->next;
-//                 }
-//             }
-//             else
-//             {
-//                 l3->next = new Node;
-//                 l3 = l3->next;
-//                 if (l1->col == l2->col)
-//                 {
-//                     l3->col = l1->col;
-//                     l3->val = l1->val + l2->val;
-//                     l3->next = NULL;
-//                     l1 = l1->next;
-//                     l2 = l2->next;
-//                 }
-//                 else if (p1[i]->col > p2[j]->col)
-//                 {
-//                     l3->col = l2->col;
-//                     l3->val = l2->val;
-//                     l3->next = NULL;
-//                     l2 = l2->next;
-//                 }
-//                 else
-//                 {
-//                     l3->col = l1->col;
-//                     l3->val = l1->val;
-//                     l3->next = NULL;
-//                     l1 = l1->next;
-//                 }
-//             }
-//         }
-//         // while (p1[i])
-//         // {
-//         // }
-//         i++;
-//         j++;
-//     }
-// }
+void Add(struct Node *p1[], struct Node *p2[], struct Node *p3[], int m1, int n1, int m2, int n2)
+{
+    if (m1 != m2 || n1 != n2)
+    {
+        cout << "Not Possible !" << endl;
+    }
+    int i = 0, c;
+    struct Node *l1, *l2, *l3;
+    while (i < m1)
+    {
+        l1 = p1[i], l2 = p2[i], l3 = p3[i];
+        c = 0;
+        while (l1 != NULL && l2 != NULL)
+        {
+            if (c == 0)
+            {
+                if (l1->col == l2->col)
+                {
+                    l3 = new Node;
+                    l3->col = l1->col;
+                    l3->val = l1->val + l2->val;
+                    l3->next = NULL;
+                    l1 = l1->next;
+                    l2 = l2->next;
+                }
+                else if (l1->col > l2->col)
+                {
+                    l3 = new Node;
+                    l3->col = l2->col;
+                    l3->val = l2->val;
+                    l3->next = NULL;
+                    l2 = l2->next;
+                }
+                else
+                {
+                    l3 = new Node;
+                    l3->col = l1->col;
+                    l3->val = l1->val;
+                    l3->next = NULL;
+                    l1 = l1->next;
+                }
+                c++;
+            }
+            else
+            {
+                struct Node *temp;
+                temp = new Node;
+                l3->next = temp;
+                l3 = temp;
+                if (l1->col == l2->col)
+                {
+                    temp->col = l1->col;
+                    temp->val = l1->val + l2->val;
+                    temp->next = NULL;
+                    l1 = l1->next;
+                    l2 = l2->next;
+                }
+                else if (l1->col > l2->col)
+                {
+                    temp->col = l2->col;
+                    temp->val = l2->val;
+                    temp->next = NULL;
+                    l2 = l2->next;
+                }
+                else
+                {
+                    temp->col = l1->col;
+                    temp->val = l1->val;
+                    temp->next = NULL;
+                    l1 = l1->next;
+                }
+            }
+        }
+        while (l1)
+        {
+            struct Node *temp;
+            temp = new Node;
+            l3->next = temp;
+            temp->col = l1->col;
+            temp->val = l1->val;
+            temp->next = NULL;
+            l3 = temp;
+            l1 = l1->next;
+        }
+        while (l2)
+        {
+            struct Node *temp;
+            temp = new Node;
+            l3->next = temp;
+            temp->col = l2->col;
+            temp->val = l2->val;
+            temp->next = NULL;
+            l3 = temp;
+            l2 = l2->next;
+        }
+        i++;
+    }
+}
 int main()
 {
     int m1, n1, m2, n2;
