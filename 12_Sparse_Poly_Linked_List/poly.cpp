@@ -5,24 +5,53 @@ struct Node
     int coeff;
     int exp;
     struct Node *next;
-} *poly = NULL;
-void Create()
+} *poly1 = NULL, *poly2 = NULL;
+void Create1()
 {
     int num, coeff, exp, i;
-    struct Node *p = poly, *last = NULL;
+    struct Node *p = poly1, *last = NULL;
     cout << "Enter number of terms of polynomial :";
     cin >> num;
     for (i = 0; i < num; i++)
     {
         cout << "Enter coeff and exp of term " << i + 1 << " : ";
         cin >> coeff >> exp;
-        if (poly == NULL)
+        if (poly1 == NULL)
         {
-            poly = new Node;
-            poly->coeff = coeff;
-            poly->exp = exp;
-            poly->next = NULL;
-            last = poly;
+            poly1 = new Node;
+            poly1->coeff = coeff;
+            poly1->exp = exp;
+            poly1->next = NULL;
+            last = poly1;
+        }
+        else
+        {
+            p = new Node;
+            p->coeff = coeff;
+            p->exp = exp;
+            p->next = NULL;
+            last->next = p;
+            last = p;
+        }
+    }
+}
+void Create2()
+{
+    int num, coeff, exp, i;
+    struct Node *p = poly2, *last = NULL;
+    cout << "Enter number of terms of polynomial :";
+    cin >> num;
+    for (i = 0; i < num; i++)
+    {
+        cout << "Enter coeff and exp of term " << i + 1 << " : ";
+        cin >> coeff >> exp;
+        if (poly2 == NULL)
+        {
+            poly2 = new Node;
+            poly2->coeff = coeff;
+            poly2->exp = exp;
+            poly2->next = NULL;
+            last = poly2;
         }
         else
         {
@@ -68,10 +97,29 @@ int Evaluate(struct Node *p, int x)
     }
     return ans;
 }
+struct Node *Add(struct Node *p1, struct Node *p2)
+{
+    struct Node *ans = NULL;
+    while (p1 && p2)
+    {
+        if (p1->exp == p2->exp)
+        {
+            p1->coeff += p2->exp;
+            p1 = p1->next;
+            p2->next;
+        }
+        else if (p1->exp < p2->exp)
+        {
+        }
+    }
+}
 int main()
 {
-    Create();
-    // Display(poly);
-    cout << Evaluate(poly, 3);
+    Create1();
+    Display(poly1);
+    cout << endl;
+    Create2();
+    Display(poly2);
+    // cout << Evaluate(poly1, 3);
     return 0;
 }
