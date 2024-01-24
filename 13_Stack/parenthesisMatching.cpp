@@ -59,11 +59,27 @@ int isBalanced(string str)
     int i;
     for (i = 0; str[i] != '\0'; i++)
     {
-        if (str[i] == '(')
+        if (str[i] == '(' || str[i] == '[' || str[i] == '{')
             Push(str[i]);
         else if (str[i] == ')')
         {
-            if (!Top)
+            if (!Top || Top->data != '(')
+            {
+                return 0;
+            }
+            Pop();
+        }
+        else if (str[i] == ']')
+        {
+            if (!Top || Top->data != '[')
+            {
+                return 0;
+            }
+            Pop();
+        }
+        else if (str[i] == '}')
+        {
+            if (!Top || Top->data != '{')
             {
                 return 0;
             }
@@ -76,7 +92,7 @@ int isBalanced(string str)
 }
 int main()
 {
-    string exp = "((A+B)*(C-D)))";
+    string exp = "{([a+b]*[c-d])/e}";
     cout << isBalanced(exp);
     return 0;
 }
