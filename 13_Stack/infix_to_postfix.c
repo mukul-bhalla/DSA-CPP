@@ -1,7 +1,7 @@
 // Infix to Postfix Conversion
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
+#include <string.h>
 struct Node
 {
     char data;
@@ -90,7 +90,7 @@ char *InToPost(char *infix)
     int i = 0, j = 0;
     char *postfix;
     int len = strlen(infix);
-    postfix = (char *)malloc((len + 2) * sizeof(char));
+    postfix = (char *)malloc((len + 1) * sizeof(char));
 
     while (infix[i] != '\0')
     {
