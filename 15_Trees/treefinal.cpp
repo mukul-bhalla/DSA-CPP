@@ -64,6 +64,78 @@ public:
     }
 };
 
+class NodeS
+{
+public:
+    Node *data;
+    NodeS *next;
+};
+class Stack
+{
+private:
+    NodeS *top;
+
+public:
+    Stack()
+    {
+        top = NULL;
+    }
+    void Push(Node *x);
+    Node *Pop();
+    void Display();
+    int isEmpty();
+};
+int Stack::isEmpty()
+{
+    if (top == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}
+void Stack::Push(Node *x)
+{
+    NodeS *t = new NodeS;
+    if (t == NULL)
+        cout << "Stack Overflow !" << endl;
+    else
+    {
+        t->data = x;
+        t->next = top;
+        top = t;
+    }
+}
+Node *Stack ::Pop()
+{
+    Node *x = NULL;
+    if (top != NULL)
+    {
+        NodeS *t = top;
+        top = top->next;
+        x = t->data;
+        delete t;
+    }
+    else
+    {
+        cout << "Stack Underflow !";
+    }
+
+    return x;
+}
+void Stack::Display()
+{
+    NodeS *t = top;
+    while (t)
+    {
+        cout << t->data << " ";
+        t = t->next;
+    }
+    cout << endl;
+}
+
 class Tree
 {
 public:
@@ -78,6 +150,9 @@ public:
     void postOrder(Node *p);
     void levelOrder(Node *p);
     int height(Node *p);
+    void IPreOrder(Node *p);
+    void IPostOrder(Node *p);
+    void IInOrder(Node *p);
 };
 void Tree ::CreateTree()
 {
@@ -174,11 +249,69 @@ int Tree::height(struct Node *p)
     else
         return y + 1;
 }
+
+void Tree::IPreOrder(struct Node *p)
+{
+    Stack stk;
+    while (p || stk.isEmpty())
+    {
+        if (p)
+        {
+            cout << p->data;
+            stk.Push(p);
+            p = p->lchild;
+        }
+        else
+        {
+            p = stk.Pop();
+            p = p->rchild;
+        }
+    }
+}
+void Tree::IInOrder(struct Node *p)
+{
+    Stack stk;
+    while (p || stk.isEmpty())
+    {
+        if (p)
+        {
+
+            stk.Push(p);
+            p = p->lchild;
+        }
+        else
+        {
+            p = stk.Pop();
+            cout << p->data;
+            p = p->rchild;
+        }
+    }
+}
+// void Tree::IPreOrder(struct Node *p)
+// {
+//     Stack stk;
+//     while (p || stk.isEmpty())
+//     {
+//         if (p)
+//         {
+//             cout << p->data;
+//             stk.Push(p);
+//             p = p->lchild;
+//         }
+//         else
+//         {
+//             p = stk.Pop();
+//             p = p->rchild;
+//         }
+//     }
+// }
+
 int main()
 {
     Tree t;
     t.CreateTree();
-    t.levelOrder(t.root);
-    cout << t.height(t.root);
+    t.IInOrder(t.root);
+    // t.levelOrder(t.root);
+    // cout << t.height(t.root);
     return 0;
 }
