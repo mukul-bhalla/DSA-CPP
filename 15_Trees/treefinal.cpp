@@ -287,30 +287,33 @@ void Tree::IInOrder(struct Node *p)
         }
     }
 }
-// void Tree::IPreOrder(struct Node *p)
-// {
-//     Stack stk;
-//     while (p || stk.isEmpty())
-//     {
-//         if (p)
-//         {
-//             cout << p->data;
-//             stk.Push(p);
-//             p = p->lchild;
-//         }
-//         else
-//         {
-//             p = stk.Pop();
-//             p = p->rchild;
-//         }
-//     }
-// }
 
+void levelOrder(struct Node *p)
+{
+    Queue q(15);
+    cout << p->data << endl;
+    q.enqueue(p);
+    while (!q.isEmpty())
+    {
+        p = q.dequeue();
+        if (p->lchild)
+        {
+            cout << p->lchild->data;
+            q.enqueue(p->lchild);
+        }
+        if (p->rchild)
+        {
+            cout << p->rchild->data << endl;
+            q.enqueue(p->rchild);
+        }
+    }
+}
 int main()
 {
     Tree t;
     t.CreateTree();
-    t.IInOrder(t.root);
+    levelOrder(t.root);
+    // t.IInOrder(t.root);
     // t.levelOrder(t.root);
     // cout << t.height(t.root);
     return 0;
