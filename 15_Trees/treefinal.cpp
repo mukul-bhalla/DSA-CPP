@@ -308,13 +308,44 @@ void levelOrder(struct Node *p)
         }
     }
 }
+
+int count(struct Node *p)
+{
+    if (p)
+    {
+        return count(p->lchild) + count(p->rchild) + 1;
+    }
+    return 0;
+}
+
+int height(struct Node *p)
+{
+    int x = 0, y = 0;
+    if (!p)
+    {
+        return 0;
+    }
+    x = height(p->lchild);
+    y = height(p->rchild);
+    if (x > y)
+    {
+        return x + 1;
+    }
+    else
+    {
+        return y + 1;
+    }
+}
+
 int main()
 {
     Tree t;
     t.CreateTree();
-    levelOrder(t.root);
+    // levelOrder(t.root);
     // t.IInOrder(t.root);
     // t.levelOrder(t.root);
     // cout << t.height(t.root);
+    cout << count(t.root) << endl;
+    cout << height(t.root);
     return 0;
 }
