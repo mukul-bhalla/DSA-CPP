@@ -1,13 +1,11 @@
 #include <iostream>
 using namespace std;
-
 struct Node
 {
     struct Node *lchild;
     int data;
     struct Node *rchild;
 } *root = NULL;
-
 void Insert(int key)
 {
     struct Node *t = root;
@@ -24,10 +22,50 @@ void Insert(int key)
     while (t != NULL)
     {
         r = t;
-
-        if (t->data < key)
+        if (key < t->data)
+        {
+            t = t->lchild;
+        }
+        else if (key > t->data)
         {
             t = t->rchild;
+        }
+        else
+        {
+            return;
+        }
+    }
+    p = new Node;
+    p->data = key;
+    p->lchild = NULL;
+    p->rchild = NULL;
+    if (key < r->data)
+    {
+        r->lchild = p;
+    }
+    else
+    {
+        r->rchild = p;
+    }
+}
+void InOrder(struct Node *t)
+{
+    if (t)
+    {
+        InOrder(t->lchild);
+        cout << t->data << " ";
+        InOrder(t->rchild);
+    }
+}
+
+struct Node *Search(int key)
+{
+    struct Node *t = root;
+    while (t != NULL)
+    {
+        if (t->data == key)
+        {
+            return t;
         }
         else if (t->data > key)
         {
@@ -35,31 +73,10 @@ void Insert(int key)
         }
         else
         {
-            return;
-        }
-        p = new Node;
-        p->data = key;
-        p->lchild = NULL;
-        p->rchild = NULL;
-        if (key < r->data)
-        {
-            r->lchild = p;
-        }
-        else
-        {
-            r->rchild = p;
+            t = t->rchild;
         }
     }
-}
-
-void Inorder(struct Node *p)
-{
-    if (p)
-    {
-        Inorder(p->lchild);
-        cout << p->data << " ";
-        Inorder(p->rchild);
-    }
+    return NULL;
 }
 int main()
 {
@@ -68,7 +85,18 @@ int main()
     Insert(20);
     Insert(8);
     Insert(30);
-    Inorder(root);
-
+    InOrder(root);
+    // cout << endl;
+    // cout << root->lchild->data;
+    // cout << Search(3)->data;
+    struct Node *s = Search(200);
+    if (s)
+    {
+        cout << s->data;
+    }
+    else
+    {
+        cout << "Not found";
+    }
     return 0;
 }
