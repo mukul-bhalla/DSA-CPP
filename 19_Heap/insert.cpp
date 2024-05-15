@@ -5,25 +5,15 @@ void Insert(int A[], int n, int key)
     A[n] = key;
 
     int i = n;
-    if (i % 2 != 0)
+
+    while (key > (((i % 2) != 0) ? A[(i - 1) / 2] : A[(i / 2) - 1]))
     {
-        while (key > A[(i - 1) / 2])
-        {
-            A[i] = A[(i - 1) / 2];
-            i = (i - 1) / 2;
-        }
-        A[i] = key;
+        A[i] = ((i % 2) != 0) ? A[(i - 1) / 2] : A[(i / 2) - 1];
+        i = ((i % 2) != 0) ? (i - 1) / 2 : (i / 2) - 1;
     }
-    else
-    {
-        while (key > (((i % 2) != 0) ? A[(i - 1) / 2] : A[(i / 2) - 1]))
-        {
-            A[i] = ((i % 2) != 0) ? A[(i - 1) / 2] : A[(i / 2) - 1];
-            i = ((i % 2) != 0) ? (i - 1) / 2 : (i / 2) - 1;
-        }
-        A[i] = key;
-    }
+    A[i] = key;
 }
+
 void Display(int A[], int n)
 {
 
@@ -35,9 +25,9 @@ void Display(int A[], int n)
 int main()
 {
 
-    int *Heap = new int[10]{40, 35, 30, 20, 10, 15, 9, 8};
+    int *Heap = new int[10]{40, 35, 30, 20, 10, 15, 9};
 
-    int n = 8;
+    int n = 7;
     Display(Heap, n);
     // cout << endl;
     // Insert(Heap, n, 37);
