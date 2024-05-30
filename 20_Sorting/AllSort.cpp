@@ -91,9 +91,57 @@ void quickSort(int A[], int l, int h)
     }
 }
 
+void Merge(int A[], int l, int mid, int h)
+{
+    int i = l, j = mid + 1, k = l;
+    int B[100];
+    while (i <= mid && j <= h)
+    {
+        if (A[i] < A[j])
+            B[k++] = A[i++];
+        else
+            B[k++] = A[j++];
+    }
+    for (; i <= mid; i++)
+    {
+        B[k++] = A[i++];
+    }
+    for (; j <= h; j++)
+    {
+        B[k++] = A[j++];
+    }
+
+    for (i = 0; i <= h; i++)
+    {
+        A[i] = B[i];
+    }
+}
+
+void ImergeSort(int A[], int n)
+{
+    int i, p, l, mid, h;
+
+    for (p = 2; p <= n; p = p * 2)
+    { // FOR PARSES
+        for (i = 0; i + p - 1 <= n; i = i + p)
+        // For low mid and high
+        {
+            l = i;
+            h = i + p - 1;
+            mid = (l + h) / 2;
+            Merge(A, l, mid, h);
+        }
+    }
+    if (p / 2 < n)
+    // For Odd elements
+    {
+        Merge(A, 0, p / 2 - 1, n - 1);
+    }
+}
+
 int main()
 {
-    int A[] = {3, 7, 9, 10, 6, 5, 12, 4, 11, 2, INT32_MAX}, n = 11;
+    int A[] = {3, 7, 9, 10, 6, 5, 12, 4, 11, 2}, n = 10;
     for (int x : A)
     {
         cout << x << " ";
@@ -107,6 +155,8 @@ int main()
     // selectionSort(A, n);
 
     // quickSort(A, 0, 10);
+
+    // ImergeSort(A, n);
 
         for (int x : A)
     {
