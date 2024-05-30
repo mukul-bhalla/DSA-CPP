@@ -102,11 +102,11 @@ void Merge(int A[], int l, int mid, int h)
         else
             B[k++] = A[j++];
     }
-    for (; i <= mid; i++)
+    for (; i <= mid;)
     {
         B[k++] = A[i++];
     }
-    for (; j <= h; j++)
+    for (; j <= h;)
     {
         B[k++] = A[j++];
     }
@@ -139,6 +139,18 @@ void ImergeSort(int A[], int n)
     }
 }
 
+void RmergeSort(int A[], int l, int h)
+{
+    int mid;
+    if (l < h)
+    {
+        mid = (l + h) / 2;
+        RmergeSort(A, l, mid);
+        RmergeSort(A, mid + 1, h);
+        Merge(A, l, mid, h);
+    }
+}
+
 int main()
 {
     int A[] = {3, 7, 9, 10, 6, 5, 12, 4, 11, 2}, n = 10;
@@ -158,7 +170,9 @@ int main()
 
     // ImergeSort(A, n);
 
-        for (int x : A)
+    RmergeSort(A, 0, n);
+
+    for (int x : A)
     {
         cout << x << " ";
     }
